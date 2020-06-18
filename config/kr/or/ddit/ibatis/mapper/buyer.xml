@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap     
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="buyer">
+	<typeAlias alias="buyerVO" type="kr.or.ddit.vo.BuyerVO"/>
+
+	<select id="searchBuyer" parameterClass="map" resultClass="buyerVO">
+		SELECT *
+		  FROM BUYER
+		 WHERE BUYER_NAME LIKE '%'||#buyer_name#||'%'
+	</select>	
+	
+	<select id="buyerList" resultClass="java.util.HashMap">
+		SELECT *
+		  FROM LPROD A INNER JOIN BUYER B ON(A.LPROD_GU = B.BUYER_LGU)
+		  WHERE B.BUYER_DELETE = 'n' 
+	</select>
+	
+	<select id="buyerIdCheck" parameterClass="String" resultClass="buyerVO">
+		SELECT *
+		  FROM BUYER
+		 WHERE BUYER_ID = #buyer_id# 
+	</select>
+	
+	<insert id="insertBuyer" parameterClass="buyerVO">
+		INSERT INTO BUYER (	BUYER_ID,
+							BUYER_NAME,
+							BUYER_LGU,
+							BUYER_BANK,
+							BUYER_ADD1,
+							BUYER_ADD2,
+							BUYER_COMTEL,
+							BUYER_FAX,
+							BUYER_MAIL,
+							BUYER_CHARGER ) VALUES ( #buyer_id#,
+												 	 #buyer_name#,
+													 #buyer_lgu#,
+													 #buyer_bank#,
+													 #buyer_add1#,
+													 #buyer_add2#,
+													 #buyer_comtel#,
+													 #buyer_fax#,
+													 #buyer_mail#,
+													 #buyer_charger# )
+	</insert>
+	
+	<select id="selectBuyerInfo" parameterClass="String" resultClass="buyerVO">
+		SELECT *
+		  FROM BUYER
+		 WHERE BUYER_ID = #buyer_id# 
+	</select>
+	
+	<update id="updateBuyer" parameterClass="buyerVO">
+		UPDATE BUYER
+		   SET BUYER_NAME = #buyer_name#,
+		       BUYER_BANK = #buyer_bank#,
+			   BUYER_ADD1 = #buyer_add1#,
+			   BUYER_ADD2 = #buyer_add2#,
+			   BUYER_COMTEL = #buyer_comtel#,
+			   BUYER_FAX = #buyer_fax#,
+			   BUYER_MAIL = #buyer_mail#,
+			   BUYER_CHARGER = #buyer_charger#
+	 	 WHERE BUYER_ID = #buyer_id#
+	</update>
+	
+	<update id="deleteBuyer" parameterClass="String">
+		UPDATE BUYER
+		   SET BUYER_DELETE = 'y'
+		 WHERE BUYER_ID = #buyer_id#
+	</update>
+	
+</sqlMap>

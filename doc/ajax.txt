@@ -1,0 +1,169 @@
+XMLHttpRequest ajax 정리
+
+function createXMLHttpRequest(){
+	var xmlHttp;
+	if(window.ActiveXObject){
+		// IE에서 XMLHttpRequest 객체 취득
+		xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
+	}else{
+		// IE 외 브라우져 XMLHttpRequest 객체 취득
+		xmlHttp = new XMLHttpRequest();
+	}
+	return xmlHttp;
+}
+
+function idCheck(){
+	if(document.frm.mem_id.value == ''){
+		alert('아이디를 입력해주세요.');
+		document.frm.mem_id.focus();
+		return;
+	}
+	
+	var xmlHttp = createXMLHttpRequest();
+	xmlHttp.onreadystatechange = function(){
+		// readyState 0 : open() 함수 호출 전
+		//            1 : open() 함수 호출 후 send() 함수 호출 전
+		//            2 : send() 함수 호출 후 서버의 정상적인 응답 신호 없음
+		//            3 : 서버로부터 응답 데이터 수신 중
+		//            4 : 서버로부터 응답 데이터 수신 완료
+		if(xmlHttp.readyState == 4){
+			// 200  : 정상 호출 및 정상 응답 외 404 등
+			if(xmlHttp.status == 200){
+				if("text/xml" == 
+					xmlHttp.getResponseHeader("Content-Type").substring(0,
+							xmlHttp.getResponseHeader("Content-Type").indexOf(";"))){
+					var xmlDoc = xmlHttp.responseXML;
+					
+// 					xmlDataPush.jsp 호출시
+// 					var subNodeArr = xmlDoc.getElementsByTagName("member")[0].childNodes;
+// 					for(var i=0; i<subNodeArr.length; i++){
+// 						window.console.log(i + " / " + subNodeArr[i].text);
+// 					}
+					
+// 					window.console.log(xmlDoc.getElementsByTagName("member")[0].text);
+					
+// 					window.console.log("members -> 첫 member id 값 : " + 
+// 							xmlDoc.getElementsByTagName("member")[0].getAttribute('id'));
+// 					window.console.log("members -> 첫 mem_name 값 : " + xmlDoc.getElementsByTagName("mem_name")[0].text);
+					var rtn = xmlDoc.getElementsByTagName('result')[0].getAttribute('flag');
+					if('yes' == rtn){
+						alert('이미 등록된 아이디입니다.');
+					}else{
+						alert('사용가능한 아이디입니다.');
+					}
+				}
+				if("text/plain"){
+					
+				}
+			}
+		}
+	};
+// 	var urlStr = 'xmlDataPush.jsp?mem_id=a001';
+	var urlStr = 'idCheck.jsp?mem_id='+document.memberForm.mem_id.value;
+	// true = asynch , false : synch
+	xmlHttp.open('get', encodeURI(urlStr), true);
+	xmlHttp.send();
+}
+
+
+jQuery AJAX 정리
+
+1)
+$.ajax({
+    type : "POST" //"POST", "GET"
+    , async : true //true, false
+    , url : "Inquiry.jsp" //Request URL
+    , dataType : "html" //전송받을 데이터의 타입 
+                        //"xml", "html", "script", "json" 등 지정 가능
+                        //미지정시 자동 판단
+    , timeout : 30000   //제한시간 지정
+    , cache : false     //true, false
+    , data : $("#inputForm").serialize() 
+                        //서버에 보낼 파라메터 
+                        //form에 serialize() 실행시 a=b&c=d 형태로 생성되며 한글은 UTF-8 방식으로 인코딩
+                        //"a=b&c=d" 문자열로 직접 입력 가능
+    , contentType: "application/x-www-form-urlencoded;charset=UTF-8"
+    , error : function(request, status, error) {
+                              //통신 에러 발생시 처리
+                              alert("code : " + request.status + "\r\nmessage : " + request.reponseText);
+              }
+    , success : function(response, status, request) {
+                              //통신 성공시 처리
+                             $('#resultDIV').append(response);    
+              }
+    , beforeSend: function() {
+                              //통신을 시작할때 처리
+                             $('#ajax_indicator').show().fadeIn('fast'); 
+              }
+    , complete: function() {
+                             //통신이 완료된 후 처리
+                             $('#ajax_indicator').fadeOut();
+              }
+    });
+
+
+2)
+var params = "prodId=" + encodeURIComponent(prodId);
+// 1. 요청 uri 및 전달 파라메터 설정. 2. 통신 성공시 success 이벤트 핸들러 설정
+$.getJSON(
+	"<%=request.getContextPath()%>/getProdDetail.do?" + params,
+	function(result){
+		var code = result.code;
+		if(code=="success"){
+			var prodDetail = result.data;
+			var html = "<table border='1' width='500' align='center'>";
+			html += "<tr><td width='150'>항목</td><td>내용</td></tr>";
+			html += "<tr><td>PROD_ID</td><td>" + prodDetail.id +"</td></tr>";
+			html += "<tr><td>PROD_NAME</td><td>" + prodDetail.name +"</td></tr>";
+			html += "<tr><td>PROD_LGU</td><td>" + prodDetail.lgu +"</td></tr>";
+			html += "<tr><td>PROD_BUYER</td><td>" + prodDetail.buyer +"</td></tr>";
+			html += "<tr><td>PROD_COST</td><td>" + prodDetail.cost +"</td></tr>";
+			html += "<tr><td>PROD_PRICE</td><td>" + prodDetail.price +"</td></tr>";
+			html += "<tr><td>PROD_SALE</td><td>" + prodDetail.sale +"</td></tr>";
+			html += "<tr><td>PROD_OUTLINE</td><td>" + prodDetail.outline +"</td></tr>";
+			html += "<tr><td>PROD_DETAIL</td><td>" + prodDetail.detail +"</td></tr>";
+			html += "</table>";
+				
+			$("#prodDetail").empty().append(html);
+				
+		}else{
+			var message = result.message;
+			alert("에러 : " + message);
+		}
+	}
+);
+
+
+3)
+// ajaxComplete()는 송,수신 성공 및 실패 모두 호출됨.
+$('셀렉터').ajaxComplete(function(event, xmlHttpRequest, settings){
+	$(this).append('<h1>AjaxComplete</h1>')
+  }).ajaxError(function(){
+	$(this).append('<h1>AjaxError</h1>')
+  }).ajaxSend(function(){
+	$(this).append('<h1>AjaxSend</h1>')
+  }).ajaxSuccess(function(result){
+	$(this).append('<h1>AjaxSuccess</h1>');
+  }).ajaxStart(function(){
+	$(this).append('<h1>AjaxStart</h1>')
+  });
+
+// load() 함수를 이용한 AJAX 통신 시작
+$('셀렉터').load(url);
+
+4)
+$.get({
+  url: url,
+  data: data,
+  success: success,
+  dataType: dataType
+});
+
+5)
+$.post({
+  url: url,
+  data: data,
+  success: function(){},
+  dataType: dataType
+});
+

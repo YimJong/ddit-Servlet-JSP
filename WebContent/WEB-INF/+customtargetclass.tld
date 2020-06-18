@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+		http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd" 
+		version="2.0"> 
+	<tlib-version>1.0</tlib-version>
+	<short-name>customtargetclass</short-name>  <!-- prefix -->
+	<uri>http://www.bagrant.com/taglib/customtargetclass-taglib</uri>  <!-- uri -->
+	
+	<function>
+		<description>charCount의 활용</description>
+		<name>charCount</name>
+		<function-class>kr.or.ddit.utils.CustomTargetClass</function-class>  <!-- 메소드가 있는 패키지 및 클래스명 -->
+		<function-signature>java.lang.Integer charCount(java.lang.String, java.lang.String)</function-signature>
+		<!-- 반환 타입 + 메소드명 + 메개변수들 -->
+		<example> <!-- 어시스트 페이지 생성 -->
+			<![CDATA[
+				${customtargetclass:charCount(java.lang.String, java.lang.String)}
+			]]>
+		</example>
+	</function>
+	
+	<function>
+		<description>plus의 활용</description>
+		<name>plus</name>
+		<function-class>kr.or.ddit.utils.CustomTargetClass</function-class>
+		<function-signature>java.lang.Integer plus(java.lang.Integer, java.lang.Integer)</function-signature>
+		<example>
+			<![CDATA[
+				${customtargetclass:plus(java.lang.Integer, java.lang.Integer)}
+			]]>
+		</example>
+	</function>
+	
+	<function>
+		<description>multiple의 활용</description>
+		<name>multiple</name>
+		<function-class>kr.or.ddit.utils.CustomTargetClass</function-class>
+		<function-signature>java.lang.Integer multiple(java.lang.String, java.lang.Integer)</function-signature>
+		<example>
+			<![CDATA[
+				${customtargetclass:multiple(java.lang.String, java.lang.Integer)}
+			]]>
+		</example>
+	</function>
+	
+	<function>
+		<description>today의 활용</description>
+		<name>today</name>
+		<function-class>kr.or.ddit.utils.CustomTargetClass</function-class>
+		<function-signature>java.lang.String today()</function-signature>
+		<example>
+			<![CDATA[
+				${customtargetclass:today()}
+			]]>
+		</example>
+	</function>
+</taglib>

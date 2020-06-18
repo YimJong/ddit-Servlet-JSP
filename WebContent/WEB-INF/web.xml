@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>ddit</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!--
+     웹 애플리케이션 내 전역 활용 상수 선언
+    -->
+  <context-param>
+        <param-name>oracleDriver</param-name>
+        <param-value>oracle.jdbc.driver.OralceDriver</param-value>
+  </context-param>
+  <context-param>
+        <param-name>oracleURL</param-name>
+        <param-value>jdbc:oracle:thin:@localhost:1521:XE</param-value>
+  </context-param>
+  <context-param>
+        <param-name>mysqlDriver</param-name>
+        <param-value>com.mysql.jdbc.Driver</param-value>
+  </context-param>
+  <context-param>
+        <param-name>mysqlURL</param-name>
+        <param-value>jdbc:mysql://localhost:3306:DB명</param-value>
+  </context-param>
+  
+  <!-- 
+  		해당 웹 애플리케이션 내 전역적인 Exception을 처리
+  			우선 순위 : 1. jsp 내 errorPage 선언과 활용
+  					2. error-page 하위의 exception-type 선언과 활용
+  					3. error-page 하위의 error-code 선언과 활용(일반적으로 이 방법을 이용)
+   -->
+   <error-page>
+   		<exception-type>java.lang.ArithmeticException</exception-type>
+   		<location>/error/error500.jsp</location>
+   </error-page>
+   
+   <error-page>
+   		<error-code>404</error-code>
+   		<location>/error/error404.jsp</location>
+   </error-page>
+   <error-page>
+   		<error-code>500</error-code>
+   		<location>/error/error500.jsp</location>
+   </error-page>
+   
+   <!-- 
+   	  세션 유효시간(만료시간) 설정 : 분단위 설정
+    -->
+    <session-config>
+    	<session-timeout>30</session-timeout>
+    </session-config>
+</web-app>

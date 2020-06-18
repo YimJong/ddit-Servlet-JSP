@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap     
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="prod">
+	<typeAlias alias="prodVO" type="kr.or.ddit.vo.ProdVO"/>
+	<typeAlias alias="lprodVO" type="kr.or.ddit.vo.LprodVO"/>
+	
+	
+	<select id="searchProdAllList" resultClass="prodVO">
+		SELECT *
+		FROM PROD
+		WHERE PROD_DELETE = 'n'
+	</select>
+	
+	<select id="getProdInfo" parameterClass="String" resultClass="prodVO">
+		SELECT *
+		FROM PROD
+		WHERE PROD_NAME = #prod_name#
+	</select>
+	
+	<select id="checkProdId" parameterClass="String" resultClass="prodVO">
+		SELECT *
+		FROM PROD
+		WHERE PROD_ID = #prod_id#
+	</select>
+	
+	<update id="deleteProd" parameterClass="String">
+		UPDATE PROD SET PROD_DELETE = 'y'
+		WHERE PROD_ID = #prod_id#
+	</update>
+	
+	<update id="updateProd" parameterClass="prodVO">
+		UPDATE PROD SET PROD_COST = #prod_cost#,
+						PROD_PRICE = #prod_price#,
+						PROD_SALE = #prod_sale#,
+						PROD_OUTLINE = #prod_outline#,
+						PROD_DETAIL = #prod_detail#,
+						PROD_TOTALSTOCK = #prod_totalstock#,
+						PROD_INSDATE = #prod_insdate#,
+						PROD_PROPERSTOCK = #prod_properstock#,
+						PROD_QTYIN = #prod_qtyin#
+			      WHERE PROD_ID = #prod_id#
+	</update>
+	
+	<insert id="insertProd" parameterClass="prodVO">
+		INSERT INTO PROD (	PROD_ID,
+							PROD_NAME,
+							PROD_LGU,
+							PROD_BUYER,
+							PROD_COST,
+							PROD_PRICE,
+							PROD_SALE,
+							PROD_OUTLINE,
+							PROD_DETAIL,
+							PROD_TOTALSTOCK,
+							PROD_INSDATE,
+							PROD_PROPERSTOCK,
+							PROD_QTYIN )  VALUES  ( #prod_id#,
+													#prod_name#,
+													#prod_lgu#,
+													#prod_buyer#,
+													#prod_cost#,
+													#prod_price#,
+													#prod_sale#,
+													#prod_outline#,
+													#prod_detail#,
+													#prod_totalstock#,
+													#prod_insdate#,
+													#prod_properstock#,
+													#prod_qtyin# )
+	
+	
+	</insert>
+	
+	
+
+	<select id="selectAllLprod" resultClass="lprodVO">
+		SELECT *
+		FROM LPROD
+	</select>
+	
+	<select id="searchLprodGu" parameterClass="String" resultClass="String">
+		SELECT DISTINCT B.LPROD_NM
+		FROM PROD A, LPROD B
+		WHERE A.PROD_LGU = B.LPROD_GU
+		AND PROD_LGU = #prod_lgu#
+	</select>
+	
+	<select id="getLatestBuyerId" parameterClass="String" resultClass="String">
+		SELECT CONCAT('P', TO_NUMBER(SUBSTR(MAX(B.BUYER_ID), 2, 5)) + 1) 
+		FROM LPROD A, BUYER B
+		WHERE A.LPROD_GU = B.BUYER_LGU
+		AND A.LPROD_NM = #lprod_nm#
+	</select>
+	
+	<select id="getBuyerIdInit" parameterClass="String" resultClass="String">
+		SELECT SUBSTR(LPROD_GU, 2, 4)
+		FROM LPROD 
+		WHERE LPROD_NM = #lprod_nm#
+	</select>
+	
+</sqlMap>
