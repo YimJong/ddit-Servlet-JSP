@@ -76,3 +76,12 @@ String.prototype.validationPROD = function() {
 	
 };
 
+String.prototype.validationTITLE = function() {
+	return /^[가-힣a-zA-Z !@#$%]{1,30}$/.test(this);
+};
+
+String.prototype.validationNICKNAME = function() {
+	return /^[가-힣]{2,5}$/.test(this);
+};
+
+

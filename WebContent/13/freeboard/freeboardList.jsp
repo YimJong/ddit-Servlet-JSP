@@ -13,7 +13,9 @@
 <c:url var="freeboardFormURI" value="/13/main.jsp">
 	<c:param name="contentPage" value="/13/freeboard/freeboardForm.jsp"></c:param>
 </c:url>
-
+<c:url var="freeboardViewURI" value="/13/main.jsp">
+	<c:param name="contentPage" value="/13/freeboard/freeboardView.jsp"></c:param>
+</c:url>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +24,19 @@
 <script type="text/javascript">
 	$(function() {
 		$('#freeboardRegistBtn').on('click', function() {
-			$(location).attr('href', '${freeboardFormURI}');
+			if(eval('${!empty LOGIN_MEMBERINFO}')) {
+				$(location).attr('href', '${freeboardFormURI}');
+			} else {
+				BootstrapDialog.show({
+				    title: '알림',
+				    message: '게시글 작성은 로그인이 필요합니다.'
+				});
+			}
+		});
+		
+		$('#freeboardTBY tr').on('click', function() {
+			const bo_no = $(this).find('td:eq(0) input').val();
+			$(location).attr('href', '${freeboardViewURI}?bo_no=' + bo_no);
 		});
 	});
 </script>
@@ -41,7 +55,7 @@
 					<th scope="col" width="10%">조회수</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="freeboardTBY">
 			<c:if test="${empty freeboardList }">
 				<tr align="center">
 					<td colspan="5"><font color="red">등록된 게시글이 존재하지 않습니다.</font></td>
@@ -50,9 +64,9 @@
 			<c:if test="${!empty freeboardList }">
 				<c:forEach items="${freeboardList }" var="freeboardInfo">
 					<tr>
-						<td>${freeboardInfo.bo_no }</td>
+						<td><input type='hidden' value='${freeboardInfo.bo_no}' />${freeboardInfo.rnum }</td>
 						<td>${freeboardInfo.bo_title }</td>
-						<td>${freeboardInfo.bo_writer }</td>
+						<td>${freeboardInfo.bo_nickname }</td>
 						<td>${freeboardInfo.bo_reg_date }</td>
 						<td>${freeboardInfo.bo_hit }</td>
 					</tr>

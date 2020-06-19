@@ -1,5 +1,7 @@
 <%@ page language="JAVA" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:url var="insertFreeboardURI" value="/13/freeboard/insertFreeboardInfo.jsp"></c:url>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +11,7 @@
 $(function(){
 	// 섬머노트를 div를 활용한 textarea에 추가.
 	// http://summernote.org 활용
-    $('#bo_content').summernote({
+    $('#bo_content').summernote({  
     		lang: 'ko-KR',
 			height: 150,
 			codemirror: {
@@ -51,12 +53,46 @@ $(function(){
             }
         }]
     }); */
+	$('form[name=freeboardForm]').submit(function() {
 
+		if(!$('#bo_title').val().validationTITLE()) {
+			return alertPrint('제목을 30자 이하로 바르게 입력해주세요.');
+		}
+		
+		if(!$('#bo_nickname').val().validationNICKNAME()) {
+			return  alertPrint('넥네임을 2자리 이상 5자리 이하로 바르게 입력해주세요.');
+		}
+		
+		if(!$('#bo_pwd').val().validationPWD()) {
+			return alertPrint('패스워드를 바르게 입력해주세요.');
+		}
+		
+		if(!$('#bo_mail').val().validationMAIL()) {
+			return alertPrint('이메일 주소를 바르게 입력해주세요.');
+		}
+		
+		let bo_content = $('#bo_content').summernote('code');
+		$(this).append('<input type="hidden" name="bo_content" value="' + bo_content + '" />');
+		
+		$(this).append('<input type="hidden" name="bo_writer" value="${LOGIN_MEMBERINFO.mem_id}" />');
+		$(this).append('<input type="hidden" name="bo_ip" value="${pageContext.request.remoteAddr}" />');
+		$(this).attr('action', '${insertFreeboardURI}');
+		
+		return true;
+	});
 });
+
+function alertPrint(msg) {
+	BootstrapDialog.show({
+	    title: '알림',
+	    message: msg
+	});
+	return false;
+};
 </script>
 </head>
 <body>
-<form class="form-horizontal" role="form" action="" method="post">
+<form name="freeboardForm" class="form-horizontal" action="" method="post">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="bo_title">제목:</label>
 		<div class="col-sm-10">
@@ -84,7 +120,7 @@ $(function(){
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="bo_content">내용:</label>
 		<div class="col-sm-10"> 
-			<div id="bo_content"><p>내용을 입력해주세요...</p></div>
+			<div id="bo_content"></div>
 		</div>
 	</div>
 	<div class="form-group">

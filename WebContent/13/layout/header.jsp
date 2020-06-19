@@ -159,10 +159,6 @@
 <script type="text/javascript">
 	$(function() {
 		
-		$('').on('click', function() {
-			
-		});
-		
 		
 		$('#LoginBTN').on('click', function() {
 			
