@@ -1,10 +1,31 @@
+<%@page import="kr.or.ddit.vo.FreeBoardVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.freeboard.service.IFreeBoardServiceImpl"%>
+<%@page import="kr.or.ddit.freeboard.service.IFreeBoardService"%>
 <%@ page language="JAVA" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	IFreeBoardService service = IFreeBoardServiceImpl.getInstance();
+	List<FreeBoardVO> freeboardList = service.freeboardList();
+%>
+<c:set var="freeboardList" value="<%=freeboardList %>"></c:set>
+<c:url var="freeboardFormURI" value="/13/main.jsp">
+	<c:param name="contentPage" value="/13/freeboard/freeboardForm.jsp"></c:param>
+</c:url>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>자유게시글 목록</title>
+<script type="text/javascript">
+	$(function() {
+		$('#freeboardRegistBtn').on('click', function() {
+			$(location).attr('href', '${freeboardFormURI}');
+		});
+	});
+</script>
 </head>
 <body>
 <div id="freeboardList_content">
@@ -21,27 +42,22 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1</td>
-					<td>테스트1</td>
-					<td>홍길동</td>
-					<td>2016-01-01</td>
-					<td>2</td>
+			<c:if test="${empty freeboardList }">
+				<tr align="center">
+					<td colspan="5"><font color="red">등록된 게시글이 존재하지 않습니다.</font></td>
 				</tr>
-				<tr>
-					<td>2</td>
-					<td>테스트2</td>
-					<td>홍길동</td>
-					<td>2016-01-01</td>
-					<td>2</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>테스트3</td>
-					<td>홍길동</td>
-					<td>2016-01-01</td>
-					<td>2</td>
-				</tr>
+			</c:if>
+			<c:if test="${!empty freeboardList }">
+				<c:forEach items="${freeboardList }" var="freeboardInfo">
+					<tr>
+						<td>${freeboardInfo.bo_no }</td>
+						<td>${freeboardInfo.bo_title }</td>
+						<td>${freeboardInfo.bo_writer }</td>
+						<td>${freeboardInfo.bo_reg_date }</td>
+						<td>${freeboardInfo.bo_hit }</td>
+					</tr>
+				</c:forEach>
+			</c:if>
 			</tbody>
 		</table>
 	</div>
@@ -57,7 +73,7 @@
 			<option value="WRITER">작성자</option>
 		</select>
 	    <button type="submit" class="btn btn-primary form-control">검색</button>
-	    <button type="button" class="btn btn-info form-control">게시글 등록</button>
+	    <button type="button" class="btn btn-info form-control" id="freeboardRegistBtn">게시글 등록</button>
 </form>
 </div>	
 </body>

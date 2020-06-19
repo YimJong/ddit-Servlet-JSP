@@ -189,7 +189,7 @@
 			var encryptID = rsaObject.encrypt($('input[name=mem_id]').val());
 			var encryptPWD = rsaObject.encrypt($('input[name=mem_pass]').val());
 			
-			var $frm = $('<form action="${pageContext.request.contextPath}/13/freeboard/memberCheck.jsp" method="post"></form>');
+			var $frm = $('<form action="${pageContext.request.contextPath}/13/memberCheck.jsp" method="post"></form>');
 			var $inputID = $("<input type='hidden' name='mem_id' value='" + encryptID + "'/>");
 			var $inputPWD = $("<input type='hidden' name='mem_pass' value='" + encryptPWD + "'/>");
 			
