@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap     
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="freeboard">
+	<typeAlias alias="freeboardVO" type="kr.or.ddit.vo.FreeBoardVO"/>
+	<sql id="selectAll">
+		SELECT *
+		  FROM FREEBOARD
+		 WHERE BO_STATUS = 'n'
+	</sql>
+	
+	
+	<select id="freeboardInfo" parameterClass="map" resultClass="freeboardVO">
+		<include refid="selectAll" />
+		   AND BO_NO = #bo_no#
+	</select>
+	
+	<select id="freeboardList" resultClass="freeboardVO">
+		SELECT ROWNUM RNUM, A.*
+		FROM (<include refid="selectAll" />) A
+	</select>
+	
+	<!-- selectKey : INSERT 쿼리 전 selectKey가 먼저 실행 됨. -->
+	<insert id="insertFreeboard" parameterClass="freeboardVO">
+		<selectKey keyProperty="bo_no" resultClass="String">
+			SELECT FREEBOARD_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO FREEBOARD (BO_NO,
+							   BO_TITLE,
+						   	   BO_WRITER,
+							   BO_NICKNAME,
+							   BO_PWD,
+							   BO_MAIL,
+							   BO_IP,
+							   BO_CONTENT,
+							   BO_GROUP) VALUES (#bo_no#,
+												 #bo_title#,
+												 #bo_writer#,
+												 #bo_nickname#,
+												 #bo_pwd#,
+												 #bo_mail#,
+												 #bo_ip#,
+												 #bo_content#,
+												 #bo_no#)
+	</insert>
+
+	<update id="deleteFreeboard" parameterClass="map">
+		UPDATE FREEBOARD 
+		   SET BO_STATUS = 'y'
+		 WHERE BO_NO = #bo_no#
+	</update>
+	
+	<update id="updateFreeboard" parameterClass="freeboardVO">
+		UPDATE FREEBOARD
+		   SET BO_TITLE = #bo_title#,
+		       BO_NICKNAME = #bo_nickname#,
+		       BO_PWD = #bo_pwd#,
+		       BO_MAIL = #bo_mail#,
+		       BO_CONTENT = #bo_content#,
+		       BO_IP = #bo_ip#
+		 WHERE BO_NO = #bo_no#      
+	</update>
+</sqlMap>
