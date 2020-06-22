@@ -6,11 +6,34 @@
 	<typeAlias alias="prodVO" type="kr.or.ddit.vo.ProdVO"/>
 	<typeAlias alias="lprodVO" type="kr.or.ddit.vo.LprodVO"/>
 	
+	<sql id="searchCondition">
+		<dynamic prepend="AND">
+			<isNotEmpty property="search_keyword" open="(" close=")">
+				<isEqual property="search_keycode" compareValue="ALL">
+					A.PROD_LGU LIKE '%'||#search_keyword#||'%'
+					OR A.PROD_NAME LIKE '%'||#search_keyword#||'%'
+					OR B.BUYER_NAME LIKE '%'||#search_keyword#||'%'
+				</isEqual>
+				<isEqual property="search_keycode" compareValue="PRODLGU">
+					A.PROD_LGU LIKE '%'||#search_keyword#||'%'
+				</isEqual>
+				<isEqual property="search_keycode" compareValue="PRODNAME">
+					A.PROD_NAME LIKE '%'||#search_keyword#||'%'
+				</isEqual>
+				<isEqual property="search_keycode" compareValue="BUYERNAME">
+					B.BUYER_NAME LIKE '%'||#search_keyword#||'%'
+				</isEqual>
+			</isNotEmpty>
+		</dynamic>
+	</sql>
 	
-	<select id="searchProdAllList" resultClass="prodVO">
+	
+	<select id="searchProdAllList" parameterClass="map" resultClass="prodVO">
 		SELECT *
-		FROM PROD
+		FROM PROD A, BUYER B
 		WHERE PROD_DELETE = 'n'
+		AND A.PROD_BUYER = B.BUYER_ID
+		<include refid="searchCondition"/>
 	</select>
 	
 	<select id="getProdInfo" parameterClass="String" resultClass="prodVO">

@@ -9,7 +9,7 @@ public interface IBuyerService {
 	
 	public List<BuyerVO> searchBuyer(Map<String, String> params);
 	
-	public List<Map<String, String>> buyerList(); 
+	public List<Map<String, String>> buyerList(Map<String, String> params); 
 	
 	public BuyerVO buyerIdCheck(String buyer_id);
 	

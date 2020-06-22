@@ -18,6 +18,7 @@
 	//    가입 처리 후 loginForm.jsp로 리다이렉트 처리
 	// 6. memberList.jsp 에서 특정 회원정보 클릭 후 main.jsp 내 컨텐츠 영역에 memberView.jsp 출력
 	//    [수정하기] | [삭제(탈퇴)] | [목록] 버튼 처리
+	request.setCharacterEncoding("UTF-8");
 	String mem_id = request.getParameter("mem_id");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

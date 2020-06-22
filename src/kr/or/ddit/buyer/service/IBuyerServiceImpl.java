@@ -36,10 +36,10 @@ public class IBuyerServiceImpl implements IBuyerService{
 	}
 
 	@Override
-	public List<Map<String, String>> buyerList() {
+	public List<Map<String, String>> buyerList(Map<String, String> params) {
 		List<Map<String, String>> list = null;
 		try {
-			list = dao.buyerList();
+			list = dao.buyerList(params);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

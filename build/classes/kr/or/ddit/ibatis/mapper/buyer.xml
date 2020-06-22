@@ -5,17 +5,44 @@
 <sqlMap namespace="buyer">
 	<typeAlias alias="buyerVO" type="kr.or.ddit.vo.BuyerVO"/>
 
+
+	<sql id="searchCondition">
+		<dynamic prepend="AND">
+			<isNotEmpty property="search_keyword" open="(" close=")">
+				<isEqual property="search_keycode" compareProperty="ALL">
+					BUYER_ID LIKE '%'||#search_keyword#||'%'
+					OR BUYER_NAME LIKE '%'||#search_keyword#||'%'
+					OR BUYER_CHARGER LIKE '%'||#search_keyword#||'%'
+				</isEqual>
+				<isEqual property="search_keycode" compareValue="BUYERID">
+					BUYER_ID LIKE '%'||#search_keyword#||'%'
+				</isEqual>
+				<isEqual property="search_keycode" compareValue="BUYERNAME">
+					BUYER_NAME LIKE '%'||#search_keyword#||'%'
+				</isEqual>
+				<isEqual property="search_keycode" compareValue="BUYERCHARGER">
+					BUYER_CHARGER LIKE '%'||#search_keyword#||'%'
+				</isEqual>
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+
+
+
 	<select id="searchBuyer" parameterClass="map" resultClass="buyerVO">
 		SELECT *
 		  FROM BUYER
 		 WHERE BUYER_NAME LIKE '%'||#buyer_name#||'%'
 	</select>	
 	
-	<select id="buyerList" resultClass="java.util.HashMap">
+	
+	<select id="buyerList" parameterClass="map" resultClass="java.util.HashMap">
 		SELECT *
 		  FROM LPROD A INNER JOIN BUYER B ON(A.LPROD_GU = B.BUYER_LGU)
-		  WHERE B.BUYER_DELETE = 'n' 
+		 WHERE B.BUYER_DELETE = 'n' 
+		 <include refid="searchCondition"/>
 	</select>
+	
 	
 	<select id="buyerIdCheck" parameterClass="String" resultClass="buyerVO">
 		SELECT *

@@ -1,3 +1,5 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
 <%@page import="kr.or.ddit.vo.MemberVO"%>
 <%@page import="java.util.List"%>
 <%@page import="kr.or.ddit.member.service.IMemberServiceImpl"%>
@@ -6,8 +8,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
+	String search_keyword = request.getParameter("search_keyword");
+	String search_keycode = request.getParameter("search_keycode");
+
+	Map<String, String> params = new HashMap<String, String>();
+	params.put("search_keyword", search_keyword);
+	params.put("search_keycode", search_keycode);
+	
 	IMemberService service = IMemberServiceImpl.getInstance();
-	List<MemberVO> memberList = service.memberList();
+	List<MemberVO> memberList = service.memberList(params);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -56,11 +65,12 @@
 	</table>
 </div>
 <div class="searchForm" align="right" style="margin-top: 10px;">
-	<form method="post" action="${pageContext.request.contextPath }/18_1/main.jsp?contentPage=boardList.jsp">
+	<form method="post" action="${pageContext.request.contextPath }/09/main.jsp">
 		<select name="search_keycode">
 			<option value="ALL">전체</option>
-			<option value="TITLE">제목</option>
-			<option value="CONTENT">컨텐츠</option>
+			<option value="MEMID">아이디</option>
+			<option value="MEMNAME">성명</option>
+			<option value="MEMADDR">주소(동)</option>
 		</select>
 		<input type="text" id="search_keyword" name="search_keyword">
 		<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" type="submit">검색</button>

@@ -12,6 +12,30 @@
 	</sql>
 
 
+	<sql id="searchCondition">
+		<dynamic prepend="AND">
+			<isNotEmpty property="search_keyword" open="(" close=")">
+				<isEqual property="search_keycode" compareValue="ALL">
+					MEM_ID LIKE '%'||#search_keyword#||'%'
+					OR MEM_NAME LIKE '%'||#search_keyword#||'%'
+					OR MEM_ADD1 LIKE '%'||#search_keyword#||'%'
+					OR MEM_ADD2 LIKE '%'||#search_keyword#||'%'
+				</isEqual>
+				<isEqual property="search_keycode" compareValue="MEMID">
+					MEM_ID LIKE '%'||#search_keyword#||'%'
+				</isEqual>
+				<isEqual property="search_keycode" compareValue="MEMNAME">
+					MEM_NAME LIKE '%'||#search_keyword#||'%'
+				</isEqual>
+				<isEqual property="search_keycode" compareValue="MEMADDR">
+					MEM_ADD1 LIKE '%'||#search_keyword#||'%'
+					OR MEM_ADD2 LIKE '%'||#search_keyword#||'%'
+				</isEqual>
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+
+
 	<select id="memberInfo" parameterClass="map" resultClass="memberVO">
 		<include refid="slelectAll"/> 
 			AND MEM_ID = #mem_id#
@@ -23,8 +47,9 @@
 	</select>
 	
 
-	<select id="memberList" resultClass="memberVO">
-		<include refid="slelectAll"/> 
+	<select id="memberList" parameterClass="map" resultClass="memberVO">
+		<include refid="slelectAll"/>
+		<include refid="searchCondition"/>
 	</select>
 
 	

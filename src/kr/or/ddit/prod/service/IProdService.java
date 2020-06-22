@@ -8,7 +8,7 @@ import kr.or.ddit.vo.ProdVO;
 
 public interface IProdService {
 
-	public List<ProdVO> searchProdAllList();
+	public List<ProdVO> searchProdAllList(Map<String, String> params);
 	
 	public ProdVO getProdInfo(String prod_name);
 	

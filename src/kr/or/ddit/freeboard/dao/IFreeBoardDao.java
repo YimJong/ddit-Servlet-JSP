@@ -7,7 +7,7 @@ import kr.or.ddit.vo.FreeBoardVO;
 
 public interface IFreeBoardDao {
 
-	public List<FreeBoardVO> freeboardList() throws Exception;
+	public List<FreeBoardVO> freeboardList(Map<String, String> parmas) throws Exception;
 	
 	public String insertFreeboard(FreeBoardVO freeboardInfo) throws Exception;
 	

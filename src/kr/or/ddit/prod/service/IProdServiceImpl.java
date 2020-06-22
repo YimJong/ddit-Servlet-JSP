@@ -22,10 +22,10 @@ public class IProdServiceImpl implements IProdService{
 	}
 
 	@Override
-	public List<ProdVO> searchProdAllList() {
+	public List<ProdVO> searchProdAllList(Map<String, String> params) {
 		List<ProdVO> list = null;
 		try {
-			list = dao.searchProdAllList();
+			list = dao.searchProdAllList(params);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		

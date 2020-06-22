@@ -9,7 +9,7 @@ public interface IMemberService {
 	
 	public MemberVO memberInfo(Map<String, String> parms);
 	
-	public List<MemberVO> memberList();
+	public List<MemberVO> memberList(Map<String, String> params);
 	
 	public void deleteMemberInfo(Map<String, String> params);
 	

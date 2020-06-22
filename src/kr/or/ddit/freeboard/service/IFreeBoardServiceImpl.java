@@ -21,10 +21,10 @@ public class IFreeBoardServiceImpl implements IFreeBoardService{
 	}
 	
 	@Override
-	public List<FreeBoardVO> freeboardList() {
+	public List<FreeBoardVO> freeboardList(Map<String, String> params) {
 		List<FreeBoardVO> list = null;
 		try {
-			list = dao.freeboardList();
+			list = dao.freeboardList(params);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

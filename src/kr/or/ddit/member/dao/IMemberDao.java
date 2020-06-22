@@ -10,7 +10,7 @@ public interface IMemberDao {
 	public MemberVO memberInfo(Map<String, String> parms) throws Exception;
 	// 서비스로 에러를 던짐
 	
-	public List<MemberVO> memberList() throws Exception;
+	public List<MemberVO> memberList(Map<String, String> params) throws Exception;
 	
 	public void deleteMemberInfo(Map<String, String> params) throws Exception;
 	

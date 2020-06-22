@@ -33,10 +33,10 @@ public class IMemberServiceImpl implements IMemberService{
 	}
 
 	@Override
-	public List<MemberVO> memberList() {
+	public List<MemberVO> memberList(Map<String, String> params) {
 		List<MemberVO> memberList = null;
 		try {
-			memberList = dao.memberList();
+			memberList = dao.memberList(params);
 		} catch (Exception e){
 			e.printStackTrace();
 		}

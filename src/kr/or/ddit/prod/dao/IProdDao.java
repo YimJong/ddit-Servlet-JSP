@@ -8,7 +8,7 @@ import kr.or.ddit.vo.ProdVO;
 
 public interface IProdDao {
 
-	public List<ProdVO> searchProdAllList() throws Exception;
+	public List<ProdVO> searchProdAllList(Map<String, String> params) throws Exception;
 	
 	public ProdVO getProdInfo(String prod_name) throws Exception;
 	

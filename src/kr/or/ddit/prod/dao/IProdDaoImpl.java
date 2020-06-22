@@ -23,8 +23,8 @@ public class IProdDaoImpl implements IProdDao{
 	}
 
 	@Override
-	public List<ProdVO> searchProdAllList() throws Exception {
-		return client.queryForList("prod.searchProdAllList");
+	public List<ProdVO> searchProdAllList(Map<String, String> params) throws Exception {
+		return client.queryForList("prod.searchProdAllList", params);
 	}
 
 	@Override

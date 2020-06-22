@@ -27,14 +27,13 @@ public class IBuyerDaoImpl implements IBuyerDao{
 	@Override
 	public List<BuyerVO> searchBuyer(Map<String, String> params)
 			throws Exception {
-		
 		return client.queryForList("buyer.searchBuyer", params);
 	}
 
 	@Override
-	public List<Map<String, String>> buyerList() throws Exception {
-		
-		return client.queryForList("buyer.buyerList");
+	public List<Map<String, String>> buyerList(Map<String, String> params) 
+			throws Exception {
+		return client.queryForList("buyer.buyerList", params);
 	}
 
 	@Override

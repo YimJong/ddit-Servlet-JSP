@@ -9,7 +9,7 @@ public interface IBuyerDao {
 
 	public List<BuyerVO> searchBuyer(Map<String, String> params) throws Exception;
 	
-	public List<Map<String, String>> buyerList() throws Exception; 
+	public List<Map<String, String>> buyerList(Map<String, String> params) throws Exception; 
 	
 	public BuyerVO buyerIdCheck(String buyer_id) throws Exception;
 	

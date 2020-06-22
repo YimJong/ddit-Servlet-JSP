@@ -7,7 +7,7 @@ import kr.or.ddit.vo.FreeBoardVO;
 
 public interface IFreeBoardService {
 	
-	public List<FreeBoardVO> freeboardList();
+	public List<FreeBoardVO> freeboardList(Map<String, String> params);
 	
 	public String insertFreeboard(FreeBoardVO freeboardInfo);
 

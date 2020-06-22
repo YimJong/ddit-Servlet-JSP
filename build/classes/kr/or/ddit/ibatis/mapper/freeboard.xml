@@ -10,16 +10,41 @@
 		 WHERE BO_STATUS = 'n'
 	</sql>
 	
+	<sql id="searchCondition">
+		<dynamic prepend="AND">
+			<isNotEmpty property="search_keyword" open="(" close=")">
+				<isEqual property="search_keycode" compareValue="TOTAL">
+					BO_TITLE LIKE '%'||#search_keyword#||'%'
+					OR BO_CONTENT LIKE '%'||#search_keyword#||'%'
+					OR BO_NICKNAME LIKE '%'||#search_keyword#||'%'
+				</isEqual>
+				<isEqual property="search_keycode" compareValue="TITLE">
+					BO_TITLE LIKE '%'||#search_keyword#||'%'
+				</isEqual>
+				<isEqual property="search_keycode" compareValue="CONTENT">
+					BO_CONTENT LIKE '%'||#search_keyword#||'%'
+				</isEqual>
+				<isEqual property="search_keycode" compareValue="NICKNAME">
+					BO_NICKNAME LIKE '%'||#search_keyword#||'%'
+				</isEqual>
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+	
+	
 	
 	<select id="freeboardInfo" parameterClass="map" resultClass="freeboardVO">
 		<include refid="selectAll" />
 		   AND BO_NO = #bo_no#
 	</select>
 	
-	<select id="freeboardList" resultClass="freeboardVO">
+	
+	<select id="freeboardList" parameterClass="map" resultClass="freeboardVO">
 		SELECT ROWNUM RNUM, A.*
-		FROM (<include refid="selectAll" />) A
+		FROM (<include refid="selectAll" />
+			  <include refid="searchCondition"/> ) A
 	</select>
+	
 	
 	<!-- selectKey : INSERT 쿼리 전 selectKey가 먼저 실행 됨. -->
 	<insert id="insertFreeboard" parameterClass="freeboardVO">

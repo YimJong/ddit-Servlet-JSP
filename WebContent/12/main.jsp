@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	request.setCharacterEncoding("UTF-8");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,19 +22,19 @@
 <center>
 	<div id="wrap">
 		<div id="header">
-			<c:import url="/10/layout/header.jsp"></c:import>
+			<c:import url="/12/layout/header.jsp"></c:import>
 		</div>
 		<p style="clear: both;"></p>
 		<div>
 			<div class="left">
-				<c:import url="/10/layout/left.jsp"></c:import>
+				<c:import url="/12/layout/left.jsp"></c:import>
 			</div>
 			<div id="content" style="height: 650px; width: 100%; overflow: auto;">
 				<c:import url="${!empty param.contextPage ? param.contextPage : '/12/buyerList.jsp' }"></c:import>
 			</div>
 		</div>
 		<div>
-			<c:import url="/10/layout/footer.jsp"></c:import>
+			<c:import url="/12/layout/footer.jsp"></c:import>
 		</div>
 	</div>
 </center>

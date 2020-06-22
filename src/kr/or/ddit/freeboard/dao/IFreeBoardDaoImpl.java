@@ -22,8 +22,8 @@ public class IFreeBoardDaoImpl implements IFreeBoardDao{
 	}
 	
 	@Override
-	public List<FreeBoardVO> freeboardList() throws Exception {
-		return client.queryForList("freeboard.freeboardList");
+	public List<FreeBoardVO> freeboardList(Map<String, String> params) throws Exception {
+		return client.queryForList("freeboard.freeboardList", params);
 	}
 
 	@Override
