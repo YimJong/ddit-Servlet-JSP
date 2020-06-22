@@ -1,0 +1,29 @@
+[33mcommit 4d4c9a3c7e59b3840923106aace4ed3460b124f8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: YimJong <thooatt@gmail.com>
+Date:   Mon Jun 22 12:58:46 2020 +0900
+
+    add search function
+
+[33mcommit 7156bbec38420f7c9a3e3bcaccc093078154e46d[m
+Author: YimJong <thooatt@gmail.com>
+Date:   Fri Jun 19 15:52:23 2020 +0900
+
+    add some function and polishing
+
+[33mcommit e88305952890294ea99dc8472923aa1ab71b69d5[m
+Author: YimJong <thooatt@gmail.com>
+Date:   Fri Jun 19 15:47:52 2020 +0900
+
+    ADD FREEBOARDLIST, MODIFY FUNCTION, AND SO FORTH...
+
+[33mcommit 38a2334be93ec0433be18a8c0a19cbeecebdbcdc[m
+Author: YimJong <thooatt@gmail.com>
+Date:   Fri Jun 19 09:43:51 2020 +0900
+
+    add freeboard regist btn function
+
+[33mcommit d005133810cac81826a442d9ec843ff8a19c2af6[m
+Author: YimJong <thooatt@gmail.com>
+Date:   Thu Jun 18 17:01:58 2020 +0900
+
+    JSP practice source in ddit 20-06-18

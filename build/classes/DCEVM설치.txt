@@ -1,0 +1,27 @@
+DCEVM(Dynamic Code Evolution VM : HotSwapping 툴)
+ - 자바코드 수정 반영을위해 웹 컨테이너(웹서버) 재기동되어 개발 퍼모먼스가 떨어지는것을 
+    방지하기위해 서버 재기동 없이 자바코드 수정시 동적으로 VM 적용
+ - http://dcevm.github.io/
+ * jdk1.7.0_79 버젼에서 반영됨.
+
+1. 인스톨러 다운로드(크롬 브라우저 활용)
+   https://github.com/dcevm/dcevm/releases 
+   DCEVM (full) for Java 7u79 (build 8)
+   DCEVM-full-7u79-installer.jar
+2. 인스톨러 실행
+   java -jar DCEVM-full-7u79-installer.jar
+3. 활성화된 창에서 JDK 버전 선택 후 [Install DCEVM as altjvm] 선택
+   - 선택한 jdk 버전의 installed altjvm?가 YES로 변경된것 확인
+   - 활성화된 창 닫기
+4. 에이전트 다운로드
+   https://github.com/HotswapProjects/HotswapAgent/releases
+   hotswap-agent-1.3.0.jar
+5. 톰캣 WTP 설정
+   Overview 탭
+      General Information
+         Open launch configuration 클릭
+             Arguments 탭 => VM Arguments 종단에 추가
+               -XXaltjvm=dcevm -javaagent:D:\C_Lib\dcevm\hotswap-agent-1.3.0.jar=autoHotswap=true,=disablePlugin=Log4j2,disablePlugin=Spring,disablePlugin=Proxy
+      Server Options 전체 체크 해제
+   Modules 탭
+         프로젝트 선택 => [Edit] 클릭 => Auto reload 체크 해제
