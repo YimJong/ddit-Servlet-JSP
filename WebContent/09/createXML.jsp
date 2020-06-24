@@ -1,3 +1,5 @@
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="kr.or.ddit.vo.MemberVO"%>
 <%@page import="java.util.List"%>
 <%@page import="kr.or.ddit.member.service.IMemberServiceImpl"%>
@@ -7,7 +9,8 @@
 <%
 	// xml 데이터 응답객체를 통해 브라우저에 전송.
 	IMemberService service = IMemberServiceImpl.getInstance();
-	List<MemberVO> memberList = service.memberList();
+	Map<String, String> params = new HashMap<String, String>();
+	List<MemberVO> memberList = service.memberList(params);
 	
 	out.println("<members>");
 	for(MemberVO memberInfo : memberList){

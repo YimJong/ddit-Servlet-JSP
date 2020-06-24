@@ -1,3 +1,5 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
 <%@page import="kr.or.ddit.vo.MemberVO"%>
 <%@page import="java.util.List"%>
 <%@page import="kr.or.ddit.member.service.IMemberServiceImpl"%>
@@ -9,7 +11,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 	IMemberService service = IMemberServiceImpl.getInstance();
-	List<MemberVO> memberList = service.memberList();
+	Map<String, String> params = new HashMap<String, String>();
+	List<MemberVO> memberList = service.memberList(params);
 %>
 <html>
 <head>

@@ -18,7 +18,8 @@
 	//   3. jsp 파일 내 태그 라이브러리 디텍티브 선언(jsp 파일 개별선언)
 	
 	IMemberService service = IMemberServiceImpl.getInstance();
-	List<MemberVO> memberList = service.memberList();
+	Map<String, String> param = new HashMap<String, String>();
+	List<MemberVO> memberList = service.memberList(param);
 	
 	pageContext.setAttribute("memberList", memberList);
 	
