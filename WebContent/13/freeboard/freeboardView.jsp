@@ -150,6 +150,7 @@ $(function(){
 			<div id="bo_content"></div>
 		</div>
 	</div>
+	
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="bo_content">첨부파일:</label>
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -157,33 +158,28 @@ $(function(){
 			<ol class="carousel-indicators">
 				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 				<li data-target="#myCarousel" data-slide-to="1"></li>
-				<li data-target="#myCarousel" data-slide-to="2"></li>
-				<li data-target="#myCarousel" data-slide-to="3"></li>
 			</ol>
 	
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner" role="listbox" style="height: 200px;">
-				<div class="item active">
-					<img src="./images/thumbs/arch-1.jpg" alt="pic1">
-				</div>
-		
-				<div class="item">
-					<img src="./images/thumbs/arch-2.jpg" alt="pic2">
-				</div>
-		
-				<div class="item">
-					<img src="./images/thumbs/autumn-1.jpg" alt="pic3">
-				</div>
-		
-				<div class="item">
-					<img src="./images/thumbs/boats-1.jpg" alt="pic4">
-				</div>
+				<c:forEach items="${freeboardInfo.items }" var="fileitemInfo" varStatus="stat">
+					<c:if test="${stat.first }">
+						<div class="item active">
+					</c:if>
+					<c:if test="${stat.last }">
+						<div class="item">
+					</c:if>
+							<img src="/files/${fileitemInfo.file_save_name }" alt="pic1">
+						</div>
+				</c:forEach>
+					
 			</div>
 			<!-- Left and right controls -->
 			<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
 			<a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
 		</div>
 	</div>
+	
 	<div class="form-group"> 
 		<div class="col-sm-offset-2 col-sm-10">
 			<button type="button" class="btn btn-success" id="btn1">글쓰기</button>

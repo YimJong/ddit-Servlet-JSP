@@ -10,6 +10,24 @@
 		 WHERE BO_STATUS = 'n'
 	</sql>
 	
+	<resultMap class="freeboardVO" id="freeboardResultMap">
+		<result property="bo_no"           column="bo_no" />
+		<result property="bo_title"        column="bo_title" />
+		<result property="bo_writer"       column="bo_writer" />
+		<result property="bo_nickname"     column="bo_nickname" />
+		<result property="bo_pwd"          column="bo_pwd" />
+		<result property="bo_mail"         column="bo_mail" />
+		<result property="bo_ip"           column="bo_ip" />
+		<result property="bo_content"      column="bo_content" />
+		<result property="bo_hit"          column="bo_hit" />
+		<result property="bo_reg_date"     column="bo_reg_date" />
+		<result property="bo_status"       column="bo_status" />
+		<result property="bo_group"        column="bo_group" />
+		<result property="bo_seq"          column="bo_seq" />
+		<result property="bo_depth"        column="bo_depth" />
+		<result property="items" column="bo_no" select="fileitem.fileitemList" />
+	</resultMap>
+	
 	<sql id="searchCondition">
 		<dynamic prepend="AND">
 			<isNotEmpty property="search_keyword" open="(" close=")">
@@ -33,7 +51,7 @@
 	
 	
 	
-	<select id="freeboardInfo" parameterClass="map" resultClass="freeboardVO">
+	<select id="freeboardInfo" parameterClass="map" resultMap="freeboardResultMap">
 		<include refid="selectAll" />
 		   AND BO_NO = #bo_no#
 	</select>

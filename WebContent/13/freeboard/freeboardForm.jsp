@@ -92,7 +92,7 @@ function alertPrint(msg) {
 </script>
 </head>
 <body>
-<form name="freeboardForm" class="form-horizontal" action="" method="post">
+<form name="freeboardForm" class="form-horizontal" action="" method="post" enctype="multipart/form-data">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="bo_title">제목:</label>
 		<div class="col-sm-10">
@@ -126,13 +126,13 @@ function alertPrint(msg) {
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="file01">첨부파일1:</label>
 		<div class="col-sm-10">
-			 <input type="file" class="filestyle" id="file01" name="file01" data-buttonName="btn-primary">
+			 <input type="file" class="filestyle" id="file01" name="files" data-buttonName="btn-primary">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="file02">첨부파일2:</label>
 		<div class="col-sm-10">
-			 <input type="file" class="filestyle" id="file02" name="file02" data-buttonName="btn-primary">
+			 <input type="file" class="filestyle" id="file02" name="files" data-buttonName="btn-primary">
 		</div>
 	</div>
 	<div class="form-group"> 

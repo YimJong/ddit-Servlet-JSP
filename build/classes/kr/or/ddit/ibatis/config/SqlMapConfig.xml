@@ -57,6 +57,7 @@
 	<sqlMap resource="kr/or/ddit/ibatis/mapper/zipcode.xml"/>
 	<sqlMap resource="kr/or/ddit/ibatis/mapper/buyer.xml"/>
 	<sqlMap resource="kr/or/ddit/ibatis/mapper/freeboard.xml"/>
+	<sqlMap resource="kr/or/ddit/ibatis/mapper/fileitem.xml"/>
 </sqlMapConfig>
 
 

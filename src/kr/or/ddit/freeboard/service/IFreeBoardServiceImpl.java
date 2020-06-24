@@ -3,17 +3,25 @@ package kr.or.ddit.freeboard.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.or.ddit.fileitem.dao.IFileItemDao;
+import kr.or.ddit.fileitem.dao.IFileItemDaoImpl;
 import kr.or.ddit.freeboard.dao.IFreeBoardDao;
 import kr.or.ddit.freeboard.dao.IFreeBoardDaoImpl;
+import kr.or.ddit.utils.AttachFileMapper;
+import kr.or.ddit.vo.FileItemVO;
 import kr.or.ddit.vo.FreeBoardVO;
+
+import org.apache.commons.fileupload.FileItem;
 
 public class IFreeBoardServiceImpl implements IFreeBoardService{
 
 	private static IFreeBoardService service;
 	private IFreeBoardDao dao;
+	private IFileItemDao fileitemDao;
 	
 	private IFreeBoardServiceImpl() {
 		dao = IFreeBoardDaoImpl.getInstance();
+		fileitemDao = IFileItemDaoImpl.getInstance();
 	}
 	
 	public static IFreeBoardService getInstance() {
@@ -32,10 +40,13 @@ public class IFreeBoardServiceImpl implements IFreeBoardService{
 	}
 
 	@Override
-	public String insertFreeboard(FreeBoardVO freeboardInfo) {
+	public String insertFreeboard(FreeBoardVO freeboardInfo, FileItem[] items) {
 		String bo_no = null;
 		try {
 			 bo_no = dao.insertFreeboard(freeboardInfo);
+			 List<FileItemVO> fileItemList = AttachFileMapper.mapper(items, bo_no);
+			 
+			 fileitemDao.insertFileItem(fileItemList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
