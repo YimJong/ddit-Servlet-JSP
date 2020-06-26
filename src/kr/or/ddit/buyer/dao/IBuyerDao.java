@@ -20,6 +20,8 @@ public interface IBuyerDao {
 	public int updateBuyer (BuyerVO vo) throws Exception;
 	
 	public int deleteBuyer (String buyer_id) throws Exception;
+	
+	public String totalCount(Map<String, String> params) throws Exception;
 
 }
 

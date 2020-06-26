@@ -5,7 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	request.setCharacterEncoding("UTF-8");
+	// request.setCharacterEncoding("UTF-8");
 	String prod_name = request.getParameter("prod_name");
 	String message = request.getParameter("message");
 	

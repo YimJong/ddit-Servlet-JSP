@@ -48,8 +48,14 @@
 	
 
 	<select id="memberList" parameterClass="map" resultClass="memberVO">
-		<include refid="slelectAll"/>
-		<include refid="searchCondition"/>
+		SELECT B.*
+		  FROM (SELECT ROWNUM RNUM, A.*
+			    FROM (<include refid="slelectAll"/>
+			          <include refid="searchCondition"/>) A) B
+		<![CDATA[
+		 WHERE B.RNUM <= #startCount#
+		   AND B.RNUM >= #endCount# ]]> 
+		 ORDER BY RNUM DESC
 	</select>
 
 	
@@ -105,6 +111,11 @@
 										, #mem_like#)	
 	</insert>
 	
-
+	<select id="totalCount" parameterClass="map" resultClass="String">
+		SELECT COUNT(MEM_ID)
+		  FROM MEMBER
+		 WHERE MEM_DELETE = 'n'
+		 <include refid="searchCondition"/>
+	</select>
 
 </sqlMap>

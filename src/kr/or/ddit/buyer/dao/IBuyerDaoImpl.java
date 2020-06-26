@@ -61,5 +61,10 @@ public class IBuyerDaoImpl implements IBuyerDao{
 		return client.update("buyer.deleteBuyer", buyer_id );
 	}
 
+	@Override
+	public String totalCount(Map<String, String> params) throws Exception {
+		return (String) client.queryForObject("buyer.totalCount", params);
+	}
+
 
 }

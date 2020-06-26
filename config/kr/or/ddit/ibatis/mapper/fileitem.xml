@@ -28,4 +28,10 @@
 										 				  #file_size#)
 	</insert>
 	
+	<select id="fileitemInfo" parameterClass="map" resultClass="fileitemVO">
+		SELECT *
+		  FROM FILEITEM
+		 WHERE FILE_SEQ = #file_seq#
+	</select>
+	
 </sqlMap>

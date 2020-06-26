@@ -17,4 +17,6 @@ public interface IMemberDao {
 	public void updateMemberInfo(MemberVO memberInfo) throws Exception;
 	
 	public void insertMember(MemberVO memberInfo) throws Exception;
+	
+	public String totalCount(Map<String, String> params) throws Exception;
 }

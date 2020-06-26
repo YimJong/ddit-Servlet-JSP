@@ -6,7 +6,7 @@
     pageEncoding="UTF-8"%>
 
 <%
-	request.setCharacterEncoding("UTF-8");
+	// request.setCharacterEncoding("UTF-8");
 	
 	MemberVO memberVO = new MemberVO();
 	

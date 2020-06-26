@@ -8,7 +8,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	// 클라이언트의 form 태그 submit시 쿼리스트링 전송방식 POST일 때 한글 처리
-	request.setCharacterEncoding("UTF-8");
+	// request.setCharacterEncoding("UTF-8");
 	
 	FreeBoardVO freeboardInfo = new FreeBoardVO();
 	

@@ -58,9 +58,16 @@
 	
 	
 	<select id="freeboardList" parameterClass="map" resultClass="freeboardVO">
-		SELECT ROWNUM RNUM, A.*
-		FROM (<include refid="selectAll" />
-			  <include refid="searchCondition"/> ) A
+		SELECT B.*
+		  FROM (SELECT ROWNUM RNUM, A.*
+				  FROM (<include refid="selectAll" />
+					    <include refid="searchCondition"/> 
+					    ORDER BY BO_GROUP, BO_SEQ DESC) A) B
+		<![CDATA[
+		 WHERE B.RNUM <= #startCount#
+		   AND B.RNUM >= #endCount#
+		 ]]> 
+		ORDER BY B.RNUM DESC
 	</select>
 	
 	
@@ -104,4 +111,53 @@
 		       BO_IP = #bo_ip#
 		 WHERE BO_NO = #bo_no#      
 	</update>
+	
+	<!-- 그룹이 같으면서 seq 가장 큰 값에 +1 -->
+	<select id="incrementSeq" parameterClass="freeboardVO" resultClass="String">
+		SELECT MAX(BO_SEQ) + 1
+		  FROM FREEBOARD
+		 WHERE BO_GROUP = #bo_group#
+	</select>
+	
+	<update id="updateSeq" parameterClass="freeboardVO">
+		UPDATE FREEBOARD
+		   SET BO_SEQ = BO_SEQ + 1
+		 WHERE BO_GROUP = #bo_group#
+		   AND BO_SEQ &gt; #bo_seq#
+	</update>
+	
+	<insert id="insertFreeboardReply" parameterClass="freeboardVO">
+		<selectKey keyProperty="bo_no" resultClass="String">
+			SELECT FREEBOARD_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO FREEBOARD (BO_NO,
+							   BO_TITLE,
+						   	   BO_WRITER,
+							   BO_NICKNAME,
+							   BO_PWD,
+							   BO_MAIL,
+							   BO_IP,
+							   BO_CONTENT,
+							   BO_GROUP,
+							   BO_SEQ,
+							   BO_DEPTH) VALUES (#bo_no#,
+												 #bo_title#,
+												 #bo_writer#,
+												 #bo_nickname#,
+												 #bo_pwd#,
+												 #bo_mail#,
+												 #bo_ip#,
+												 #bo_content#,
+												 #bo_group#,
+												 #bo_seq#,
+												 #bo_depth#)
+	</insert>
+	
+	<select id="totalCount" parameterClass="map" resultClass="String">
+		SELECT COUNT(BO_NO)
+		  FROM FREEBOARD
+		 WHERE BO_STATUS = 'n'
+		 <include refid="searchCondition"/>
+	</select>
+	
 </sqlMap>

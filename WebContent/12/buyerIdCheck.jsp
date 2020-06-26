@@ -8,7 +8,7 @@
 <%@ page language="java" contentType="text/plain; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	request.setCharacterEncoding("UTF-8");
+	// request.setCharacterEncoding("UTF-8");
 	String buyer_id = request.getParameter("buyer_id");
 	
 	IBuyerService service = IBuyerServiceImpl.getInstance();

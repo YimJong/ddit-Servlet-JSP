@@ -4,6 +4,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700">
+<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/13/styles/jquery-ui-1.10.4.custom.min.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/13/styles/font-awesome.min.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/13/styles/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/13/styles/animate.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/13/styles/all.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/13/styles/main.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/13/styles/style-responsive.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/13/styles/zabuto_calendar.min.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/13/styles/pace.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/13/styles/jquery.news-ticker.css">
 <title>Insert title here</title>
 </head>
 <body>

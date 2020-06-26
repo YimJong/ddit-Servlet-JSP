@@ -7,7 +7,7 @@
 <%@ page language="java" contentType="text/plain; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	request.setCharacterEncoding("UTF-8");
+	// request.setCharacterEncoding("UTF-8");
 	String mem_id = request.getParameter("mem_id");
 	
 	Map<String, String> params = new HashMap<String, String>();

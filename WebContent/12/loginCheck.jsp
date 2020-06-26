@@ -1,3 +1,4 @@
+<%@page import="kr.or.ddit.listener.SessionManager"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="javax.print.URIException"%>
 <%@page import="kr.or.ddit.vo.MemberVO"%>
@@ -11,6 +12,9 @@
 <%
 	String mem_id = request.getParameter("mem_id");
 	String mem_pass = request.getParameter("mem_pass");
+	
+	SessionManager.getInstance().loginDuplicationCheck(session.getId(), mem_id);
+	
 	Map<String, String> params = new HashMap<String, String>();
  	params.put("mem_id", mem_id);
  	params.put("mem_pass", mem_pass);

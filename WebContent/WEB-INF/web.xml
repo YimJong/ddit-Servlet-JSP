@@ -56,4 +56,108 @@
     <session-config>
     	<session-timeout>30</session-timeout>
     </session-config>
+    
+<!--     <filter>
+    	<filter-name>filter1</filter-name>
+    	<filter-class>kr.or.ddit.filter.Filter1</filter-class>
+    </filter>
+    <filter-mapping>
+    	<filter-name>filter1</filter-name>
+    	<url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+    	<filter-name>filter2</filter-name>
+    	<filter-class>kr.or.ddit.filter.Filter2</filter-class>
+    </filter>
+    <filter-mapping>
+    	<filter-name>filter2</filter-name>
+    	<url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+
+    <filter>
+    	<filter-name>filter3</filter-name>
+    	<filter-class>kr.or.ddit.filter.Filter3</filter-class>
+    </filter>
+    <filter-mapping>
+    	<filter-name>filter3</filter-name>
+    	<url-pattern>/13/*</url-pattern>
+    </filter-mapping> -->
+    
+    <filter>
+    	<filter-name>encodingFilter</filter-name>
+    	<filter-class>kr.or.ddit.filter.EncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+    	<filter-name>encodingFilter</filter-name>
+    	<url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    
+    <filter>
+    	<filter-name>ipCheckFilter</filter-name>
+    	<filter-class>kr.or.ddit.filter.IPCheckFilter</filter-class>
+    </filter>
+    <filter-mapping>
+    	<filter-name>ipCheckFilter</filter-name>
+    	<url-pattern>/02/*</url-pattern>
+    </filter-mapping>
+    
+    <filter>
+    	<filter-name>fileUploadFilter</filter-name>
+    	<filter-class>kr.or.ddit.filter.FileUploadFilter</filter-class>
+    </filter>
+    <filter-mapping>
+    	<filter-name>fileUploadFilter</filter-name>
+    	<url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+    	
+    <!-- 
+    	13 폴더 내 자원을 대상 : 로그인(x 로그인 안해도 접근 가능)
+    					 main.jsp
+    					 main.jsp?contentPage=/13/freeboard/freeboardList.jsp
+    					 loginCheck.jsp
+    					 main.jsp?contentPage=/13/freeboard/freeboardView.jsp
+    					 
+    					 로그인(O 로그인 해야 접근 가능)
+    					 main.jsp?contentPage=/13/freeboard/freeboardFrom.jsp
+    					 main.jsp?contentPage=/13/freeboard/insertFreeboardInfo.jsp
+    					 main.jsp?contentPage=/13/freeboard/updateFreeboardInfo.jsp
+    					 main.jsp?contentPage=/13/freeboard/deleteFreeboardInfo.jsp
+    					 
+    	필터를 활용한 로그인 검증 체크 처리.
+    		filter name : loginCheckFilter
+    		filter class : kr.or.ddit.filter.LoginCheckFilter
+    					      클라이언트 요청 시 URI(request.getRequestURI()) 또는 
+    					      서블릿 패스(request.getServletPath()) 활용
+     -->
+    
+    <!-- 
+    	리스너 : 서블릿 2.3 스팩에 최초 포함되어 웹 애플리케이션 서버(WAS, 웹 컨테이너, 서블릿 컨테이너)에서 
+    	      Application(ServletContext), ServletRequest, HttpSession의 인스턴스 / GC(가비지 컬렉션),
+    	            저장영역(Scope)대상 값의 저장과 삭제 갱신 시 전파되는 이벤트의 청취자를 의미. 
+     -->
+    
+    <listener> <!-- 리스너 등록 -->
+    	<listener-class>kr.or.ddit.listener.Log4jInitializeListener</listener-class>
+    </listener>
+    
+    <listener>
+    	<listener-class>kr.or.ddit.listener.CustomServletRequestListener</listener-class>
+    </listener>
+    
+    <listener>
+    	<listener-class>kr.or.ddit.listener.SessionManager</listener-class>
+    </listener>
+    
+    <security-constraint>
+    	<display-name>특정 서블릿 패스 요청 차단</display-name>
+    	<web-resource-collection>
+    		<web-resource-name>No Access</web-resource-name>
+    		<url-pattern>/01/*</url-pattern>
+    	</web-resource-collection>
+    	<auth-constraint>
+    		<role-name></role-name>
+    	</auth-constraint>
+    </security-constraint>
 </web-app>

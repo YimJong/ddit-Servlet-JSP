@@ -1,3 +1,4 @@
+<%@page import="kr.or.ddit.listener.SessionManager"%>
 <%@page import="java.security.PrivateKey"%>
 <%@page import="kr.or.ddit.utils.CryptoGenerator"%>
 <%@page import="java.net.URLEncoder"%>
@@ -13,6 +14,8 @@
 <%
 	String mem_id = request.getParameter("mem_id");
 	String mem_pass = request.getParameter("mem_pass");
+	
+	SessionManager.getInstance().loginDuplicationCheck(session.getId(), mem_id);
 	
 	mem_id = CryptoGenerator.decryptRSA(session, mem_id);
 	mem_pass = CryptoGenerator.decryptRSA(session, mem_pass);

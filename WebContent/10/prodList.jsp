@@ -1,3 +1,4 @@
+<%@page import="kr.or.ddit.utils.RolePaginationUtil"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="kr.or.ddit.vo.ProdVO"%>
@@ -6,7 +7,13 @@
 <%@page import="kr.or.ddit.prod.service.IProdService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%	
+	String currentPage = request.getParameter("currentPage");
+	if(currentPage == null) {
+		currentPage = "1";
+	}
+	
 	String message = request.getParameter("message");
 	String message1 = request.getParameter("message1");
 	String search_keyword = request.getParameter("search_keyword");
@@ -17,9 +24,19 @@
 	params.put("search_keycode", search_keycode);
 	
 	IProdService service = IProdServiceImpl.getInstance();
-
+	
+	String totalCount = service.totalCount(params);
+	
+	RolePaginationUtil pagination = new RolePaginationUtil(request,
+														   Integer.parseInt(currentPage),
+														   Integer.parseInt(totalCount));
+	
+	params.put("startCount", String.valueOf(pagination.getStartCouont()));
+	params.put("endCount",  String.valueOf(pagination.getEndCouont()));
+	
 	List<ProdVO> prodList = service.searchProdAllList(params);
 %>
+<c:set var="paginationMenu" value="<%=pagination.getPagingHtmls() %>"></c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -84,6 +101,9 @@
 		</tbody>
 	</table>
 </div>
+
+${paginationMenu }
+
 <div class="searchForm" align="right" style="margin-top: 10px;">
 	<form method="post" action="${pageContext.request.contextPath }/10/main.jsp">
 		<select name="search_keycode">

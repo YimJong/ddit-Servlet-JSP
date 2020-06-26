@@ -27,4 +27,6 @@ public interface IProdDao {
 	public String getLatestBuyerId(String lprod_nm) throws Exception;
 	
 	public String getBuyerIdInit(String lprod_nm) throws Exception;
+	
+	public String totalCount(Map<String, String> params) throws Exception;
 }

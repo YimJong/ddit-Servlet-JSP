@@ -37,10 +37,17 @@
 	
 	
 	<select id="buyerList" parameterClass="map" resultClass="java.util.HashMap">
-		SELECT *
-		  FROM LPROD A INNER JOIN BUYER B ON(A.LPROD_GU = B.BUYER_LGU)
-		 WHERE B.BUYER_DELETE = 'n' 
-		 <include refid="searchCondition"/>
+		SELECT B.*
+		FROM (SELECT ROWNUM RNUM, A.*
+		 	  FROM (SELECT *
+				    FROM LPROD A INNER JOIN BUYER B ON(A.LPROD_GU = B.BUYER_LGU)
+				    WHERE B.BUYER_DELETE = 'n' 
+				    <include refid="searchCondition"/>) A) B
+		<![CDATA[
+		 WHERE B.RNUM <= #startCount#
+		   AND B.RNUM >= #endCount#
+		 ]]> 
+		ORDER BY B.RNUM DESC
 	</select>
 	
 	
@@ -96,5 +103,11 @@
 		   SET BUYER_DELETE = 'y'
 		 WHERE BUYER_ID = #buyer_id#
 	</update>
+	
+	<select id="totalCount" parameterClass="map" resultClass="String">
+		SELECT COUNT(BUYER_ID)
+		  FROM BUYER
+		 WHERE BUYER_DELETE = 'n'
+	</select>
 	
 </sqlMap>

@@ -29,11 +29,19 @@
 	
 	
 	<select id="searchProdAllList" parameterClass="map" resultClass="prodVO">
-		SELECT *
-		FROM PROD A, BUYER B
-		WHERE PROD_DELETE = 'n'
-		AND A.PROD_BUYER = B.BUYER_ID
-		<include refid="searchCondition"/>
+		
+	   SELECT B.*
+	   FROM (SELECT ROWNUM RNUM, A.*
+		     FROM (SELECT *
+			       FROM PROD A, BUYER B
+			        WHERE PROD_DELETE = 'n'
+			        AND A.PROD_BUYER = B.BUYER_ID
+		            <include refid="searchCondition"/>) A) B
+	   <![CDATA[
+		 WHERE B.RNUM <= #startCount#
+		   AND B.RNUM >= #endCount#
+		 ]]> 
+		ORDER BY B.RNUM DESC
 	</select>
 	
 	<select id="getProdInfo" parameterClass="String" resultClass="prodVO">
@@ -121,6 +129,12 @@
 		SELECT SUBSTR(LPROD_GU, 2, 4)
 		FROM LPROD 
 		WHERE LPROD_NM = #lprod_nm#
+	</select>
+	
+	<select id="totalCount" parameterClass="map" resultClass="String">
+		SELECT COUNT(PROD_ID) 
+		  FROM PROD
+		 WHERE PROD_DELETE = 'n'
 	</select>
 	
 </sqlMap>

@@ -1,6 +1,7 @@
 package kr.or.ddit.fileitem.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 
@@ -37,5 +38,10 @@ public class IFileItemDaoImpl implements IFileItemDao{
 		} finally {
 			client.endTransaction();   // commitTransaction() 실행이 되지 않았을 시 롤백 됨.
 		}
+	}
+
+	@Override
+	public FileItemVO fileitemInfo(Map<String, String> params) throws Exception {
+		return (FileItemVO) client.queryForObject("fileitem.fileitemInfo", params);
 	}
 }

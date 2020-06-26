@@ -100,5 +100,17 @@ public class IBuyerServiceImpl implements IBuyerService{
 		}
 		return result;
 	}
+
+	@Override
+	public String totalCount(Map<String, String> params) {
+		String totalCount = null;
+		
+		try {
+			totalCount = dao.totalCount(params);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return totalCount;
+	}
 }
 

@@ -27,4 +27,6 @@ public interface IProdService {
 	public String getLatestBuyerId(String lprod_nm);
 	
 	public String getBuyerIdInit(String lprod_nm);
+	
+	public String totalCount(Map<String, String> params);
 }

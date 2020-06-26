@@ -52,6 +52,18 @@ public class IFreeBoardServiceImpl implements IFreeBoardService{
 		}
 		return bo_no;
 	}
+	
+	
+	@Override
+	public String insertFreeboardReply(FreeBoardVO freeboardInfo) {
+		String bo_no = null;
+		try {
+			bo_no = dao.insertFreeboardReply(freeboardInfo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return bo_no;
+	}
 
 	@Override
 	public FreeBoardVO freeboardInfo(Map<String, String> params) {
@@ -80,5 +92,16 @@ public class IFreeBoardServiceImpl implements IFreeBoardService{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public String totalCount(Map<String, String> params) {
+		String totalCount = null;
+		try {
+			totalCount = dao.totalCount(params);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return totalCount;
 	}
 }

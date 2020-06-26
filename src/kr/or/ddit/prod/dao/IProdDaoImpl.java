@@ -71,6 +71,11 @@ public class IProdDaoImpl implements IProdDao{
 	public String getBuyerIdInit(String lprod_nm) throws Exception {
 		return (String) client.queryForObject("prod.getBuyerIdInit", lprod_nm);
 	}
+
+	@Override
+	public String totalCount(Map<String, String> params) throws Exception {
+		return (String) client.queryForObject("prod.totalCount", params);
+	}
 	
 	
 	

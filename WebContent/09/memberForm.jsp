@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-	request.setCharacterEncoding("UTF-8");
+	// request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html; charset=UTF-8");
 	
@@ -15,11 +15,11 @@
 <title>Insert title here</title>
 <!-- 
 	JavaScript 유니코드(UTF-8) 인코딩                             /       디코딩
-		                    escape()                  unescape() : 유니코드 형식으로 인코딩/디코딩
+		                    encape()                  unescape() : 유니코드 형식으로 인코딩/디코딩
 		                    										URL 표현 시 활용기호(ex  : / or / or ? etc ...)를 포함
-    		                escodeURI()               decodeURI() : 유니코드 형식으로 인코딩/디코딩
+    		                encodeURI()               decodeURI() : 유니코드 형식으로 인코딩/디코딩
          										                     URL 표현 시 활용기호(ex  : / or / or ? etc ...)를 포함 안함.
-    		                escodeURIComponent()      decodeURIComponent() : 유니코드 형식으로 인코딩/디코딩
+    		                encodeURIComponent()      decodeURIComponent() : 유니코드 형식으로 인코딩/디코딩
          										                                                          단순 문자 또는 문자열
  -->
 <script type='text/javascript' src='http://code.jquery.com/jquery-latest.js'> </script>
@@ -89,7 +89,7 @@ td {text-align: left; }
 	<tr><td class="tLine" colspan="2"></td></tr>
 	<tr><td rowspan="13" class="pic" colspan="2" style="vertical-align: bottom; width: 150px; text-align: center;">
 			<img src="${pageContext.request.contextPath }/image/btn_pic.gif" alt="사진올리기" class="btn" title="인적사항에 올릴 증명	을 검색합니다." 
-				style="cursor: pointer;"/><br/>
+				style="cursor: pointer;" onclick="idPicOpenPopup();"/><br/>
 			<div style="width: 100%" align="center">
 				size : 235x315 이하
 			</div>
@@ -287,6 +287,12 @@ td {text-align: left; }
 		const url = '${pageContext.request.contextPath}/09/zipcodeSearchForm.jsp';
 		const opts = 'width=380px, height=430px, status=no, resizable=no, scrollbars=no';
 		window.open(url, '우편번호 검색', opts);
+	};
+	
+	function idPicOpenPopup() {
+		const url = '${pageContext.request.contextPath}/09/idPicFileuploadForm.jsp';
+		const opts = 'width=380px, height=430px, status=no, resizable=no, scrollbars=no';
+		window.open(url, '증명사진', opts);
 	};
 </script>
 </body>

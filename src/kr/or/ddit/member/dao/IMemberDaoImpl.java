@@ -52,6 +52,11 @@ public class IMemberDaoImpl implements IMemberDao{
 		client.insert("member.insertMember", memberInfo);
 	}
 
+	@Override
+	public String totalCount(Map<String, String> params) throws Exception {
+		return (String) client.queryForObject("member.totalCount", params);
+	}
+
 
 	
 	

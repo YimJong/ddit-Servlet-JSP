@@ -17,6 +17,7 @@ import kr.or.ddit.global.GlobalConstant;
 // FileDownloadView.fileDownload(pageContext, "a.ang");  =>  다운로드 창 정의
 public class FileDownloadView {
 	public static void fileDownload(PageContext pageContext,
+									String realName,
 									String downloadFileName) throws IOException {
 		// response, out 취득
 		HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
@@ -25,9 +26,9 @@ public class FileDownloadView {
 		File downloadFile = new File(GlobalConstant.FILE_PATH, downloadFileName);
 		
 		if(downloadFile.exists()) {  // 다운로드 파일이 존재 할 때만
-			downloadFileName = URLEncoder.encode(downloadFileName, "UTF-8"); // 파일명이 한글일 수 있으므로 인코딩
+			realName = URLEncoder.encode(realName, "UTF-8"); // 파일명이 한글일 수 있으므로 인코딩
 			
-			response.setHeader("Content-Disposition", "attachment;fileName=" + downloadFileName);
+			response.setHeader("Content-Disposition", "attachment;fileName=" + realName);
 			response.setContentType("application/octet-stream"); // 다른이름으로 저장.
 			response.setContentLength((int)downloadFile.length());
 			

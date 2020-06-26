@@ -20,4 +20,6 @@ public interface IBuyerService {
 	public int updateBuyer (BuyerVO vo);
 	
 	public int deleteBuyer (String buyer_id);
+	
+	public String totalCount (Map<String, String> params);
 }

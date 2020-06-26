@@ -22,6 +22,9 @@
 <c:url var="deleteFreeboardURI" value="/13/freeboard/deleteFreeboard.jsp"></c:url>
 <c:url var="mainURI" value="/13/main.jsp"></c:url>
 <c:url var="updateFreeboardURI" value="/13/freeboard/updateFreeboardInfo.jsp"></c:url>
+<c:url var="freeboardReplyFormURI" value="/13/main.jsp">
+	<c:param name="contentPage" value="/13/freeboard/freeboardReplyForm.jsp"></c:param>
+</c:url>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,6 +85,25 @@ $(function(){
     		});
     	}
     });
+    
+    // 댓글
+    $('#btn3').on('click', function() {
+    	if(eval('${!empty LOGIN_MEMBERINFO}')) {
+	    	// /ddit/13/main.jsp?contentPage=/13/freeboard/freeboardReplyForm.jsp?rnum=${param.rnum}&bo_title=${freeboardInfo.bo_title}
+	    	// 한글 처리
+	    	const bo_title = encodeURIComponent('${freeboardInfo.bo_title}');
+	    	const queryString = '?rnum=${param.rnum}&bo_title=' + bo_title;
+	    	const parentInfo = '&bo_group=${freeboardInfo.bo_group}&bo_seq=${freeboardInfo.bo_seq}&bo_depth=${freeboardInfo.bo_depth}';
+	    	$(location).attr('href', '${freeboardReplyFormURI }' + queryString + parentInfo);
+    	} else {
+    		BootstrapDialog.show({
+    		    title: '알림',
+    		    message: '로그인 후 작성이 가능합니다.'
+    		});
+    	}
+    });
+    
+    
     // 목록
     $('#btn4').on('click', function() {
     	$(location).attr('href', '${mainURI}');
@@ -169,7 +191,8 @@ $(function(){
 					<c:if test="${stat.last }">
 						<div class="item">
 					</c:if>
-							<img src="/files/${fileitemInfo.file_save_name }" alt="pic1">
+							<img src="/files/${fileitemInfo.file_save_name }" alt="pic1"
+							onclick="javascript:location.href='${pageContext.request.contextPath }/13/fileDownload.jsp?file_seq=${fileitemInfo.file_seq}';">
 						</div>
 				</c:forEach>
 					
