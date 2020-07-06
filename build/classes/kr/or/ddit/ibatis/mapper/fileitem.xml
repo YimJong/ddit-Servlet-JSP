@@ -34,4 +34,24 @@
 		 WHERE FILE_SEQ = #file_seq#
 	</select>
 	
+	
+	
+	<!-- 종원 -->
+	<insert id="insertImageboardFile" parameterClass="fileitemVO">
+		<selectKey keyProperty="file_no">
+			SELECT FILEITEM_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO FILEITEM (FILE_NO,
+							  BOARD_INDEX,
+							  BOARD_NO,
+							  FILE_NAME,
+							  FILE_SAVE_NAME,
+							  FILE_TYPE)      values   (#file_no#,
+														'5',
+														#board_no#,
+													    #file_name#,
+													    #file_save_name#,
+													    #file_type#)
+	</insert>
+	
 </sqlMap>

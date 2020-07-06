@@ -73,7 +73,6 @@ String.prototype.validationDONG = function () {
 
 String.prototype.validationPROD = function() {
 	return /^[A-Z]{1}[0-9]{9}$/.test(this);
-	
 };
 
 String.prototype.validationTITLE = function() {

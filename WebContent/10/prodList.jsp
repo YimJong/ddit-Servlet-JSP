@@ -31,8 +31,8 @@
 														   Integer.parseInt(currentPage),
 														   Integer.parseInt(totalCount));
 	
-	params.put("startCount", String.valueOf(pagination.getStartCouont()));
-	params.put("endCount",  String.valueOf(pagination.getEndCouont()));
+	params.put("startCount", String.valueOf(pagination.getStartCount()));
+	params.put("endCount",  String.valueOf(pagination.getEndCount()));
 	
 	List<ProdVO> prodList = service.searchProdAllList(params);
 %>
